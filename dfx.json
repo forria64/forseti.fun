@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "forsetidotfun_backend": {
+      "candid": "src/forsetidotfun_backend/forsetidotfun_backend.did",
+      "package": "forsetidotfun_backend",
+      "type": "rust"
+    },
+    "forsetidotfun_frontend": {
+      "dependencies": [
+        "forsetidotfun_backend"
+      ],
+      "source": [
+        "src/forsetidotfun_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "forsetidotfun_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
