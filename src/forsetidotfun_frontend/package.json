@@ -1,7 +1,7 @@
 {
   "name": "forsetidotfun_frontend",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "setup": "npm i && dfx canister create forsetidotfun_backend && dfx generate forsetidotfun_backend && dfx deploy",

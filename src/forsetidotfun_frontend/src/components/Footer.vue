@@ -25,6 +25,7 @@
   position: absolute;
   left: 1rem;
   bottom: 0.8rem;
+  font-size: 1.8rem;
 }
 
 .bottom-right {
@@ -87,10 +88,22 @@
 @media (max-width: 768px) {
   .bottom-left {
     bottom: 3.8rem;
+    font-size: 1.2rem;
   }
   .bottom-right {
     bottom: 4rem;
   }
+  .icp-logo {
+  height: 1.1rem;
+  margin-left: -0.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-button {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.5rem;
+}
 }
 </style>
 

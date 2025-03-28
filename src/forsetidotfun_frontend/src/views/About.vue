@@ -30,11 +30,24 @@ const processedText = rawAboutText.replace(/([.,\-;])/g, '<span class="blue-symb
   font-size: 2.5rem;
   max-width: 40%;
   max-height: 50%;
+  line-height: 3.4rem;
 }
 
 /* Use deep selector to ensure styling applies to v-html content */
 ::v-deep .blue-symbol {
   color: #00e8e8;
+}
+
+@media (max-width: 768px) {
+.about-text {
+  font-size: 1.2rem;
+  max-width: 70%;
+  line-height: 2rem;
+}
+.about-image {
+  height: 14vh;
+  margin-bottom: 1rem;
+}
 }
 </style>
 

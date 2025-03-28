@@ -24,8 +24,14 @@ import Footer from './components/Footer.vue';
   background-image: url("/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  font-size: 3rem;
+  font-size: 2.5rem;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+.page-container {
+  font-size: 1.8rem;
+}
 }
 </style>
 

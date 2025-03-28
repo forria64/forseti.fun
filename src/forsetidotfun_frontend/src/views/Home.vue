@@ -17,7 +17,13 @@ main {
 }
 .main-image {
   max-width: 100%;
-  height: auto;
+  height: 71vh;
+}
+
+@media (max-width: 768px) {
+.main-image {
+  height: 38vh;
+}
 }
 </style>
 
