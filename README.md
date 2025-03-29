@@ -17,5 +17,7 @@
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   ▓▓▓▓   ▓▓   ▓▓   ▓▓   ▓▓▓▓▓▓
 ████████████████████████████  ████   ██████      █    ██   ██████
 █████████████████████████████████████████████████████████████████
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v1.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v1.0.1
 ```
+Forseti is a reimplementation of the [IConfucius](https://github.com/onicai/IConfucius)
+ Motoko project, built mainly in Rust instead. This project recreates the functionality of the original canister—providing users with random pearls of wisdom from a Norse *GOD*—with Rust’s performance and reliability.
