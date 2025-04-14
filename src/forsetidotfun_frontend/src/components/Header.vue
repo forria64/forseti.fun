@@ -1,36 +1,64 @@
 <template>
-  <header>
-    <div class="top-left">
-      <router-link to="/" class="home-link title">
-        Forseti<font style="color: #00e8e8;">.</font>fun
-      </router-link>
+  <header class="header">
+    <div class="header-left">
+      <img src="/about.png" alt="Forseti Logo" class="about-logo" />
     </div>
-    <!-- Single Menu Option Always Visible -->
-    <div class="top-right">
-      <router-link to="/about">ABOUT</router-link>
+    <div class="header-title">
+      <router-link to="/" class="home-link">
+        forseti<font style="color: #00e8e8;">.</font>fun
+      </router-link>
     </div>
   </header>
 </template>
 
 <script setup>
-// No extra logic is required now.
+// No additional script logic required.
 </script>
 
 <style scoped>
-.top-left {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
-.top-right {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.header {
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
-/* No mobile-specific rules needed now */
+.header-left {
+  margin-right: 1rem;
+}
+
+.about-logo {
+  height: 40px; /* Adjust as needed */
+  width: auto;
+}
+
+.header-title {
+  font-size: 1.6rem;
+  font-family: "Norse", serif;
+  padding-bottom: 0.8rem;
+}
+
+@media (max-width: 675px) {
+.header {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.header-left {
+  margin-right: 0.5rem;
+}
+
+.about-logo {
+  height: 30px; /* Adjust as needed */
+  width: auto;
+}
+
+.header-title {
+  font-size: 1rem;
+  padding-bottom: 0.3rem;
+}
+}
 </style>
 

@@ -1,3 +1,21 @@
-service : {
-    "greet": (text) -> (text) query;
-}
+type Config = record {
+  llama_canister_id : principal;
+};
+
+type RuneRecord = record {
+  username : text;
+  prompt : text;
+  response : text;
+  timestamp : nat64;  // New field added for timestamp (seconds)
+};
+
+// Public interface temporarily disabled.
+// Uncomment the block below to restore the public endpoints.
+
+service : (llama_canister_id : text) -> {
+//  prompt : (text) -> (variant { Ok : text; Err : text });
+  health : () -> (text) query;
+  get_config : () -> (opt Config) query;
+  get_runes : () -> (vec RuneRecord) query;
+};
+

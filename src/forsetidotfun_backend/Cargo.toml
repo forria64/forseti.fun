@@ -1,6 +1,6 @@
 [package]
 name = "forsetidotfun_backend"
-version = "0.1.0"
+version = "2.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,5 +10,11 @@ crate-type = ["cdylib"]
 
 [dependencies]
 candid = "0.10"
+futures = "0.3.31"
 ic-cdk = "0.16"
+ic-cdk-macros = "0.17.1"
 ic-cdk-timers = "0.10" # Feel free to remove this dependency if you don't need timers
+regex = "1.11.1"
+serde = "1.0.219"
+
+

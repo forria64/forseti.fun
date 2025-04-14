@@ -6,14 +6,16 @@
       "type": "rust"
     },
     "forsetidotfun_frontend": {
-      "dependencies": [
-        "forsetidotfun_backend"
-      ],
       "source": [
         "src/forsetidotfun_frontend/dist"
       ],
       "type": "assets",
       "workspace": "forsetidotfun_frontend"
+    },
+    "llama_cpp_canister": {
+      "type": "custom",
+      "candid": "build/llama_cpp.did",
+      "wasm": "build/llama_cpp.wasm"
     }
   },
   "defaults": {

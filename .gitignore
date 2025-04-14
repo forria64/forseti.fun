@@ -25,3 +25,4 @@ dist/
 .env
 Cargo.lock
 package-lock.json
+*.gguf

@@ -1,7 +1,7 @@
 /* 1) Load the Norse font (place Norse.otf in public/fonts/) */
 @font-face {
   font-family: "Norse";
-  src: url("/fonts/norse.otf") format("opentype");
+  src: url("/fonts/Px-Grotesk-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -13,7 +13,7 @@ body {
   max-width: 100%;
   margin: 0;
   padding: 0;
-  color: #f8f4ea;            /* text color */
+  color: #f3f4f7;            /* Updated global text color (White) */
   font-family: "Norse", serif;
   font-size: 16px;
   overflow: hidden;
@@ -21,10 +21,10 @@ body {
 
 /* 3) Links with hover color */
 a {
-  color: #f8f4ea;
+  color: #f3f4f7;
   text-decoration: none;
 }
 a:hover {
-  color: #00e8e8; /* hover color */
+  color: #00e8e8; /* cyan accent remains */
 }
 
