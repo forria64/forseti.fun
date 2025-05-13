@@ -1,6 +1,6 @@
 [package]
 name = "forsetidotfun_backend"
-version = "2.0.0"
+version = "3.0.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -17,4 +17,5 @@ ic-cdk-timers = "0.10" # Feel free to remove this dependency if you don't need t
 regex = "1.11.1"
 serde = "1.0.219"
 
-
+[profile.release]
+overflow-checks = true

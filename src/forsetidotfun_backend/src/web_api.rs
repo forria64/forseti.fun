@@ -122,8 +122,17 @@ fn int_to_roman(mut num: u32) -> String {
 }
 
 fn remove_special_tokens(s: &str) -> String {
-    let re = Regex::new(r"<[^>]*>|assistant\n").unwrap();
-    re.replace_all(s, "").to_string()
+    // Remove <|im_start|>assistant<|im_end|>, <|im_start|>user<|im_end|>, and any <...> tag
+    let re = Regex::new(r"<\|im_start\|>assistant<\|im_end\>|<\|im_start\|>user<\|im_end\>|<[^>]*>").unwrap();
+    // Step 1: Remove special tokens
+    let mut cleaned = re.replace_all(s, "").to_string();
+    // Step 2: Remove control characters (non-printable)
+    cleaned = Regex::new(r"[\x00-\x1F\x7F]").unwrap().replace_all(&cleaned, "").to_string();
+    // Step 3: Remove HTML entities (e.g., &nbsp;, &amp;)
+    cleaned = Regex::new(r"&[a-zA-Z]+;").unwrap().replace_all(&cleaned, "").to_string();
+    // Optional: Trim and collapse whitespace
+    cleaned = cleaned.trim().to_string();
+    cleaned
 }
 
 

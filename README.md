@@ -1,14 +1,28 @@
- ```
+```
  ╔═══╗╔═══╗╔═══╗╔═══╗╔═══╗╔════╗╔══╗
  ║╔══╝║╔═╗║║╔═╗║║╔═╗║║╔══╝║╔╗╔╗║╚╣╠╝
  ║╚══╗║║ ║║║╚═╝║║╚══╗║╚══╗╚╝║║╚╝ ║║ 
  ║╔══╝║║ ║║║╔╗╔╝╚══╗║║╔══╝  ║║   ║║ 
 ╔╝╚╗  ║╚═╝║║║║╚╗║╚═╝║║╚══╗ ╔╝╚╗ ╔╣╠╗
 ╚══╝  ╚═══╝╚╝╚═╝╚═══╝╚═══╝ ╚══╝ ╚══╝
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v2.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v3.0.0
 ```
 
 This project deploys a multi-canister application on the Internet Computer. The application consists of a Rust backend, a Vue-based frontend, and a custom `llama_cpp_canister` for language model inference.
+
+## Changelog
+
+### v3.0.0
+
+- Major frontend UI/UX improvements for mobile and desktop.
+- Improved chat scroll logic:  
+  - Chat now only auto-scrolls to bottom after the initial fetch and on new messages, not on every update.
+- Send button now uses a turquoise arrow and hover background matches the input field.
+- CSS fixes for mobile prompt input font size.
+- Backend: Enhanced cycle usage debugging and prompt cache logic.
+- Updated documentation and deployment instructions.
+
+---
 
 ## Prerequisites
 
@@ -18,6 +32,16 @@ Before deploying in a development environment, ensure you have the following ins
 - [npm (>= 7.0.0)](https://www.npmjs.com/)
 - [Python 3](https://www.python.org/) (for running the model loader script)
 - A local network setup via DFX (typically started with `dfx start`)
+
+Python 3 libraries for the model loader script (I'll package them properly at some point in the future):
+- colorama
+- pygame
+
+Install with:
+```bash
+pip install colorama pygame
+``` 
+or just use system packages ¯\_(ツ)_/¯
 
 ## Deployment in a Development Environment
 
@@ -38,7 +62,7 @@ Follow these steps to deploy the application locally:
    After deployment, add the **forsetidotfun_backend** canister as a controller to the **llama_cpp_canister**. Replace `<forsetidotfun_backend principal ID>` with the actual principal ID of your backend canister:
 
    ```bash
-   dfx canister update-settings --add-controller <forsetidotfun_backend principal ID> llama_cpp_canister --local
+   dfx canister update-settings --add-controller <forsetidotfun_backend principal ID> llama_cpp_canister
    ```
 
 3. **Upload and Initialize the Model**
@@ -46,19 +70,12 @@ Follow these steps to deploy the application locally:
    Use the provided Python script to upload and initialize your model. Execute the following command while pointing to your model file:
 
    ```bash
-   python3 scripts/model_loader.py --model-file models/Llama-3.2-1B-Instruct-Q4_K_M.gguf --network local
+   python3 scripts/model_loader.py
    ```
 
    This script chunks the model file, uploads it to the `llama_cpp_canister`, and performs initialization of the model.
 
 ## Additional Information
-
-- **Development Workflow:**  
-  For local development, you can run the frontend with Vite using:
-  ```bash
-  npm run start
-  ```
-  and monitor updates to your Rust backend with `dfx deploy` as needed.
 
 - **Configuration Files:**  
   - The `dfx.json` contains configurations for all canisters.
@@ -70,10 +87,5 @@ Follow these steps to deploy the application locally:
   - If deployment fails, check the logs and verify that all required environment variables are correctly set.
   - Confirm that the correct principal IDs are used when prompted, especially for the `llama_cpp_canister`.
 
-## Re-enabling the Public Interface
-
-If you need to re-enable the public interface in the future:
-- Uncomment the service block in `src/forsetidotfun_backend/forsetidotfun_backend.did`.
-- Update the frontend placeholder text as necessary.
 
 Happy coding and enjoy building with Forseti!

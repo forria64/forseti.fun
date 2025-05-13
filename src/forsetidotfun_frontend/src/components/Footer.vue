@@ -3,23 +3,24 @@
     <div class="footer-container">
       <!-- Left: ICP logo and text -->
       <div class="footer-left">
-        <a href="https://internetcomputer.org/" class="icp-link">
+        <a href="https://internetcomputer.org/" class="icp-link" target="_blank" rel="noopener noreferrer">
           100% on-chain
           <img src="/icp.png" alt="ICP Logo" class="icp-logo" />
         </a>
       </div>
-      <!-- Center: Social buttons -->
-      <div class="footer-center">
-        <a href="https://x.com/forsetidotfun" class="social-button social-x"></a>
-        <a href="https://t.me/forsetidotfun" class="social-button social-telegram"></a>
-        <a href="https://github.com/forria64/forseti.fun" class="social-button social-github"></a>
-        <a href="https://odin.fun/token/2dld" class="social-button social-odin"></a>
-      </div>
-      <!-- Right: Copyright text -->
+      <!-- Right: Social buttons (moved from center, now right-aligned) -->
       <div class="footer-right">
-        © 2025 Onchain Graphics
+        <a href="https://x.com/forsetidotfun" class="social-button social-x" target="_blank" rel="noopener noreferrer"></a>
+        <a href="https://t.me/forsetidotfun" class="social-button social-telegram" target="_blank" rel="noopener noreferrer"></a>
+        <a href="https://github.com/forria64/forseti.fun" class="social-button social-github" target="_blank" rel="noopener noreferrer"></a>
+        <a href="https://odin.fun/token/2dld" class="social-button social-odin" target="_blank" rel="noopener noreferrer"></a>
       </div>
     </div>
+    <!-- Preload hover icons for smooth transitions -->
+    <link rel="preload" as="image" href="/x-hover.png" />
+    <link rel="preload" as="image" href="/telegram-hover.png" />
+    <link rel="preload" as="image" href="/github-hover.png" />
+    <link rel="preload" as="image" href="/odin-hover.png" />
   </footer>
 </template>
 
@@ -33,14 +34,13 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px; /* Adjust height as needed */
+  height: 100px;
   background-color: #141313;
   z-index: 1000;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 3rem 3rem 3rem 3rem;
 }
 
 .footer-container {
@@ -50,7 +50,6 @@
   justify-content: space-between;
 }
 
-/* Left side: ICP logo and text; using color 3f3f3f */
 .footer-left {
   display: flex;
   align-items: center;
@@ -58,29 +57,34 @@
 .icp-link {
   display: flex;
   align-items: center;
-  color: #3f3f3f;  /* New color for ICP text */
+  color: #3f3f3f;
   text-decoration: none;
   font-size: 1rem;
 }
 .icp-logo {
-  height: 15px; /* Adjust size as needed */
+  height: 15px;
   margin-left: 0.5rem;
   vertical-align: middle;
 }
 
-/* Center: Social buttons */
-.footer-center {
-  text-align: center;
+/* Remove .footer-center */
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
+
 .social-button {
   display: inline-block;
   width: 3rem;
   height: 3rem;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: 0 0.5rem;
+  margin: 0 0.25rem;
+  transition: background-image 0.2s;
 }
-/* Social button images and hover effects */
 .social-x {
   background-image: url('/x.png');
 }
@@ -106,35 +110,26 @@
   background-image: url('/odin-hover.png');
 }
 
-/* Right side: Copyright text, using color 3f3f3f */
-.footer-right {
-  text-align: right;
-  font-size: 1rem;
-  color: #3f3f3f;
-}
-
 @media (max-width: 675px) {
-.social-button {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin: 0 0.25rem;
-  padding-bottom: 0.25rem;
-}
-.footer-right {
-  font-size: 0.60rem;
-}
-.icp-link {
-  font-size: 0.60rem;
-}
-.icp-logo {
-  height: 10px; /* Adjust size as needed */
-  margin-left: 0.25rem;
-}
-.footer {
-  height: 50px; /* Adjust height as needed */
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
+  .social-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 0.15rem;
+  }
+  .icp-link {
+    font-size: 0.60rem;
+  }
+  .icp-logo {
+    height: 10px;
+    margin-left: 0.25rem;
+  }
+  .footer {
+    height: 50px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .footer-right {
+    gap: 0.15rem;
+  }
 }
 </style>
-

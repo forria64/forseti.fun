@@ -1,14 +1,9 @@
 <template>
   <div class="page-container">
-    <!-- Header remains at the top -->
     <Header />
-
-    <!-- Main Content loaded via routing -->
     <div class="main-content">
       <router-view />
     </div>
-
-    <!-- Footer is fixed to the bottom -->
     <Footer />
   </div>
 </template>
@@ -20,25 +15,27 @@ import Footer from "./components/Footer.vue";
 
 <style scoped>
 .page-container {
-  position: relative;
-  min-height: 100%;
-  min-width: 100%;
-  background-color: #141313; /* New solid background */
-  font-size: 2.5rem;
-  overflow: auto;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background-color: #141313;
 }
 
 .main-content {
-  flex: 1;
-  padding: 0 2rem 80px;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 3rem 100px; /* 100px = footer height */
+  box-sizing: border-box;
 }
+
 
 @media (max-width: 675px) {
 .main-content {
-  padding: 0 1rem 80px;
+  padding: 0 2.6rem 150px; /* 100px = footer height */
 }
 }
 </style>
-
