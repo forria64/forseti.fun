@@ -14,6 +14,7 @@ This project deploys a multi-canister application on the Internet Computer. The 
 
 ### v3.0.0
 
+
 - Major frontend UI/UX improvements for mobile and desktop.
 - Improved chat scroll logic:  
   - Chat now only auto-scrolls to bottom after the initial fetch and on new messages, not on every update.
