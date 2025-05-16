@@ -42,8 +42,12 @@ def get_quote(topic=None):
             }
         """
     )
-    # Always pass a tuple of length 1 using the 'args' keyword
-    result = canister.get_quote(args=(topic,))
+    # Ensure the argument is always a tuple of length 1, and is None if not a string
+    if topic is None or topic == "":
+        args = (None,)
+    else:
+        args = (str(topic),)
+    result = canister.get_quote(args=args)
     if "Ok" in result:
         return result["Ok"]
     else:
