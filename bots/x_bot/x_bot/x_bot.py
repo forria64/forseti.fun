@@ -5,6 +5,9 @@ import tweepy
 from itertools import cycle
 import getpass
 import subprocess
+from ic.client import Client
+from ic.identity import Identity
+from ic.canister import Canister
 
 CANISTER_ID = "wnbu2-tyaaa-aaaak-queqa-cai"
 IC_GATEWAY = "https://icp-api.io"
@@ -29,10 +32,8 @@ def get_env_or_prompt(var, prompt_text):
     return val
 
 def get_quote(topic=None):
-    import ic.client
-    from ic.identity import Identity
-    client = ic.client.Client(IC_GATEWAY)
-    canister = ic.client.Canister(
+    client = Client(IC_GATEWAY)
+    canister = Canister(
         client=client,
         canister_id=CANISTER_ID,
         candid="""
