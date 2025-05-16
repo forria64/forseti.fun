@@ -13,7 +13,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "forseti-x-bot = x_bot:main",
+            "forseti-x-bot = x_bot.x_bot:main",
         ],
     },
     python_requires=">=3.8",

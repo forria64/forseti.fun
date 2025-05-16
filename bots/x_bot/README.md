@@ -36,7 +36,7 @@ A Python bot that fetches mythic quotes from the Forseti IC canister and posts t
 You can install and run the bot directly from GitHub using pipx:
 
 ```sh
-pipx install git+https://github.com/forria64/forseti.fun.git#subdirectory=src/forsetidotfun_backend/bots/x_bot
+pipx install git+https://github.com/forria64/forseti.fun.git#subdirectory=bots/x_bot
 ```
 
 This will install the `forseti-x-bot` command globally.
