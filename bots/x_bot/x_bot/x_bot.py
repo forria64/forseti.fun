@@ -23,13 +23,12 @@ def get_quote():
         CANISTER_ID,
         candid="""
             service : {
-                get_quote : (opt text) -> (variant { Ok : text; Err : text });
+                get_quote : () -> (variant { Ok : text; Err : text });
             }
         """
     )
-    # Always call with no topic (None)
-    args = (None,)
-    result = canister.get_quote(args=args)
+    # Call with no arguments
+    result = canister.get_quote()
     if "Ok" in result:
         return result["Ok"]
     else:
