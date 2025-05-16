@@ -41,7 +41,7 @@ def get_quote(topic=None):
                 get_quote : (opt text) -> (variant { Ok : text; Err : text });
             }
         """,
-        identity=Identity.anonymous(),
+        identity=None,  # Anonymous
     )
     result = canister.get_quote(topic)
     if "Ok" in result:
