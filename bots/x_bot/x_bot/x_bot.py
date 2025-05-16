@@ -29,15 +29,20 @@ def get_quote():
     else:
         raise Exception(f"Unexpected canister output: {out}")
 
-def post_to_twitter(text, api_key, api_secret, access_token, access_secret):
-    # Twitter/X limit is 280 characters
-    if len(text) > 280:
-        text = text[:277] + "..."
-    auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_secret)
-    api = tweepy.API(auth)
-    api.update_status(text)
+def post_to_twitter(text, api_key, api_secret, access_token, access_secret, bearer_token):
+    # Use Twitter API v2 (no character limit check, backend is responsible)
+    client = tweepy.Client(
+        bearer_token=bearer_token,
+        consumer_key=api_key,
+        consumer_secret=api_secret,
+        access_token=access_token,
+        access_token_secret=access_secret
+    )
+    response = client.create_tweet(text=text)
+    if not response.data or "id" not in response.data:
+        raise Exception(f"Failed to post tweet: {response}")
 
-def write_systemd_service(api_key, api_secret, access_token, access_secret):
+def write_systemd_service(api_key, api_secret, access_token, access_secret, bearer_token):
     service_content = f"""[Unit]
 Description=Forseti X Bot Twitter Poster
 After=network.target
@@ -51,6 +56,7 @@ Environment=TWITTER_API_KEY={api_key}
 Environment=TWITTER_API_SECRET={api_secret}
 Environment=TWITTER_ACCESS_TOKEN={access_token}
 Environment=TWITTER_ACCESS_SECRET={access_secret}
+Environment=TWITTER_BEARER_TOKEN={bearer_token}
 ExecStart={sys.executable} {os.path.abspath(__file__)}
 
 [Install]
@@ -70,20 +76,21 @@ def main():
     api_secret = get_env_or_prompt("TWITTER_API_SECRET", "Twitter API Secret")
     access_token = get_env_or_prompt("TWITTER_ACCESS_TOKEN", "Twitter Access Token")
     access_secret = get_env_or_prompt("TWITTER_ACCESS_SECRET", "Twitter Access Secret")
+    bearer_token = get_env_or_prompt("TWITTER_BEARER_TOKEN", "Twitter Bearer Token")
 
     # If called with --install-service, set up systemd and exit
     if len(sys.argv) > 1 and sys.argv[1] == "--install-service":
         if os.geteuid() != 0:
             print("This command must be run with sudo/root for service installation.")
             sys.exit(1)
-        write_systemd_service(api_key, api_secret, access_token, access_secret)
+        write_systemd_service(api_key, api_secret, access_token, access_secret, bearer_token)
         return
 
     while True:
         try:
             quote = get_quote()
             print(f"Posting quote: {quote}")
-            post_to_twitter(quote, api_key, api_secret, access_token, access_secret)
+            post_to_twitter(quote, api_key, api_secret, access_token, access_secret, bearer_token)
             print("Posted to Twitter.")
         except Exception as e:
             print("Error:", e)
