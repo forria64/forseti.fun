@@ -4,6 +4,7 @@ import time
 import tweepy
 import getpass
 import subprocess
+import re
 
 CANISTER_ID = "wnbu2-tyaaa-aaaak-queqa-cai"
 
@@ -22,10 +23,11 @@ def get_quote():
     if result.returncode != 0:
         raise Exception(f"dfx error: {result.stderr}")
     out = result.stdout.strip()
-    # Example output: '("your quote here")' or '(variant { Ok = "your quote here" })'
-    # Try to extract the quoted string
-    if '"' in out:
-        return out.split('"')[1]
+    # Extract the quoted string robustly
+    match = re.search(r'"((?:[^"\\]|\\.)*)"', out)
+    if match:
+        # Unescape any escaped characters (e.g., \n, \")
+        return bytes(match.group(1), "utf-8").decode("unicode_escape")
     else:
         raise Exception(f"Unexpected canister output: {out}")
 
