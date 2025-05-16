@@ -34,15 +34,16 @@ def get_env_or_prompt(var, prompt_text):
 def get_quote(topic=None):
     client = Client(IC_GATEWAY)
     canister = Canister(
-        client,         # positional
-        CANISTER_ID,    # positional
+        client,
+        CANISTER_ID,
         candid="""
             service : {
                 get_quote : (opt text) -> (variant { Ok : text; Err : text });
             }
         """
     )
-    result = canister.get_quote(topic)
+    # Always pass a tuple for args
+    result = canister.get_quote(args=(topic,))
     if "Ok" in result:
         return result["Ok"]
     else:
