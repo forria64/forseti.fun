@@ -23,16 +23,11 @@ def get_quote():
         CANISTER_ID,
         candid="""
             service : {
-                get_quote : () -> (variant { Ok : text; Err : text });
+                get_quote : () -> (text);
             }
         """
     )
-    # Call with no arguments (ic-py 1.0.1 expects this for () candid)
-    result = canister.get_quote()
-    if "Ok" in result:
-        return result["Ok"]
-    else:
-        raise Exception(f"Canister error: {result}")
+    return canister.get_quote()
 
 def post_to_twitter(text, api_key, api_secret, access_token, access_secret):
     auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_secret)

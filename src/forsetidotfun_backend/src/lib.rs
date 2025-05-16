@@ -64,14 +64,14 @@ async fn prompt(prompt_text: String) -> Result<String, String> {
 }
 
 #[update]
-async fn get_quote() -> Result<String, String> {
+async fn get_quote() -> String {
     let model_api = MODEL_API.with(|api| {
         api.borrow()
            .as_ref()
            .expect("ModelApi not initialized")
            .clone()
     });
-    x_api::get_quote(&model_api, None).await
+    x_api::get_quote(&model_api, None).await.unwrap_or_else(|e| e)
 }
 
 #[query]
