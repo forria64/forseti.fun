@@ -16,7 +16,7 @@ def get_env_or_prompt(var, prompt_text):
 def get_quote():
     # Use dfx canister call to fetch the quote
     cmd = [
-        "dfx", "canister", "call", CANISTER_ID, "get_quote"
+        "dfx", "canister", "--network", "ic", "call", CANISTER_ID, "get_quote"
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
