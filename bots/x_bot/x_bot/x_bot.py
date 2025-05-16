@@ -42,8 +42,8 @@ def get_quote(topic=None):
             }
         """
     )
-    # Always pass a tuple of length 1
-    result = canister.get_quote((topic,))
+    # Always pass a tuple of length 1 using the 'args' keyword
+    result = canister.get_quote(args=(topic,))
     if "Ok" in result:
         return result["Ok"]
     else:
