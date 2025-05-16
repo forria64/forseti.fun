@@ -4,11 +4,8 @@ import time
 import tweepy
 import getpass
 import subprocess
-from ic.client import Client
-from ic.canister import Canister
 
 CANISTER_ID = "wnbu2-tyaaa-aaaak-queqa-cai"
-IC_GATEWAY = "https://icp-api.io"
 
 def get_env_or_prompt(var, prompt_text):
     val = os.environ.get(var)
@@ -17,17 +14,20 @@ def get_env_or_prompt(var, prompt_text):
     return val
 
 def get_quote():
-    client = Client(IC_GATEWAY)
-    canister = Canister(
-        client,
-        CANISTER_ID,
-        candid="""
-            service : {
-                get_quote : () -> (text);
-            }
-        """
-    )
-    return canister.get_quote()
+    # Use dfx canister call to fetch the quote
+    cmd = [
+        "dfx", "canister", "call", CANISTER_ID, "get_quote"
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        raise Exception(f"dfx error: {result.stderr}")
+    out = result.stdout.strip()
+    # Example output: '("your quote here")' or '(variant { Ok = "your quote here" })'
+    # Try to extract the quoted string
+    if '"' in out:
+        return out.split('"')[1]
+    else:
+        raise Exception(f"Unexpected canister output: {out}")
 
 def post_to_twitter(text, api_key, api_secret, access_token, access_secret):
     auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_secret)
