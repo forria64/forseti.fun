@@ -6,7 +6,7 @@ setup(
     description="Forseti Twitter bot for posting quotes from the IC",
     author="forria",
     author_email="forria@forria64.space",
-    packages=find_packages(),
+    packages=["x_bot"],
     install_requires=[
         "tweepy",
         "ic-py",
