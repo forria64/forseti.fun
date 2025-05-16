@@ -1,5 +1,6 @@
 mod model_api;
 mod web_api;
+mod x_api;
 
 use candid::{CandidType, Deserialize, Principal};
 use ic_cdk_macros::{init, pre_upgrade, post_upgrade, query, update};
@@ -12,13 +13,16 @@ thread_local! {
 
 #[derive(CandidType, Deserialize)]
 struct Config {
-    llama_canister_id: Principal,
+    llm_canister_id: Principal,
 }
 
+// Hardcoded ic-llm canister principal
+const IC_LLM_CANISTER_ID: &str = "w36hm-eqaaa-aaaal-qr76a-cai";
+
 #[init]
-fn init(llama_canister_id: String) {
-    let principal = Principal::from_text(llama_canister_id)
-        .expect("Invalid canister ID");
+fn init() {
+    let principal = Principal::from_text(IC_LLM_CANISTER_ID)
+        .expect("Invalid hardcoded ic-llm canister ID");
     MODEL_API.with(|api| {
         *api.borrow_mut() = Some(ModelApi::new(principal));
     });
@@ -27,10 +31,9 @@ fn init(llama_canister_id: String) {
 /// Save necessary state before upgrade
 #[pre_upgrade]
 fn pre_upgrade() {
-    // Save the current llama_canister_id as a String if available.
     let maybe_api = MODEL_API.with(|api| api.borrow().clone());
     if let Some(api) = maybe_api {
-        ic_cdk::storage::stable_save((api.llama_canister_id.to_text(),))
+        ic_cdk::storage::stable_save((api.llm_canister_id.to_text(),))
             .expect("Stable save failed");
     }
 }
@@ -38,18 +41,15 @@ fn pre_upgrade() {
 /// Restore state after upgrade
 #[post_upgrade]
 fn post_upgrade() {
-    // Retrieve the stored llama_canister_id from stable storage.
-    let (llama_canister_id,): (String,) =
+    let (llm_canister_id,): (String,) =
         ic_cdk::storage::stable_restore().expect("Stable restore failed");
-    let principal = Principal::from_text(llama_canister_id)
+    let principal = Principal::from_text(llm_canister_id)
         .expect("Invalid canister ID during post_upgrade");
     MODEL_API.with(|api| {
         *api.borrow_mut() = Some(ModelApi::new(principal));
     });
 }
 
-/// Exposed update endpoint that enqueues the prompt request.
-/// It returns an immediate acknowledgement that execution has begun.
 #[update]
 async fn prompt(prompt_text: String) -> Result<String, String> {
     let model_api = MODEL_API.with(|api| {
@@ -63,21 +63,22 @@ async fn prompt(prompt_text: String) -> Result<String, String> {
         .map(|_| "Prompt execution started".to_string())
 }
 
+#[update]
+async fn get_quote(topic: Option<String>) -> Result<String, String> {
+    let model_api = MODEL_API.with(|api| {
+        api.borrow()
+           .as_ref()
+           .expect("ModelApi not initialized")
+           .clone()
+    });
+    x_api::get_quote(&model_api, topic).await
+}
+
 #[query]
 fn health() -> String {
     "ok".to_string()
 }
 
-#[query]
-fn get_config() -> Option<Config> {
-    MODEL_API.with(|api| {
-        api.borrow().as_ref().map(|model_api| Config {
-            llama_canister_id: model_api.llama_canister_id,
-        })
-    })
-}
-
-/// Exposed query endpoint that returns all recorded rune entries.
 #[query]
 fn get_runes() -> Vec<web_api::RuneRecord> {
     web_api::get_runes()

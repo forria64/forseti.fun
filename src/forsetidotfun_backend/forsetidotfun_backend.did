@@ -1,19 +1,14 @@
-type Config = record {
-  llama_canister_id : principal;
-};
-
 type RuneRecord = record {
   username : text;
   prompt : text;
   response : text;
-  timestamp : nat64;  // New field added for timestamp (seconds)
+  timestamp : nat64;
 };
 
-
-service : (llama_canister_id : text) -> {
+service : {
   prompt : (text) -> (variant { Ok : text; Err : text });
   health : () -> (text) query;
-  get_config : () -> (opt Config) query;
   get_runes : () -> (vec RuneRecord) query;
-};
+  get_quote : (opt text) -> (variant { Ok : text; Err : text });
+}
 

@@ -5,15 +5,31 @@
  ║╔══╝║║ ║║║╔╗╔╝╚══╗║║╔══╝  ║║   ║║ 
 ╔╝╚╗  ║╚═╝║║║║╚╗║╚═╝║║╚══╗ ╔╝╚╗ ╔╣╠╗
 ╚══╝  ╚═══╝╚╝╚═╝╚═══╝╚═══╝ ╚══╝ ╚══╝
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v3.0.0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~v4.0.0
 ```
 
 This project deploys a multi-canister application on the Internet Computer. The application consists of a Rust backend, a Vue-based frontend, and a custom `llama_cpp_canister` for language model inference.
 
 ## Changelog
 
-### v3.0.0
+### v4.0.0
 
+- **Backend refactor:**  
+  - Removed all runtime configuration and init arguments for the LLM canister; now uses a hardcoded principal.
+  - Removed unused or dead code, including the `get_config` endpoint and upgrade hooks.
+  - Added a new public `get_quote` endpoint for fetching a single Forseti quote, suitable for bot integration.
+  - Improved prompt sanitization and output cleaning for LLM responses.
+  - Modularized bot logic for Twitter/X posting, including a ready-to-use Python bot in `bots/x_bot`.
+- **Bots:**  
+  - Added a Python Twitter/X bot (`bots/x_bot`) that fetches quotes from the canister and posts to Twitter/X.
+  - The bot can be installed and run via pipx, and can also install itself as a systemd service.
+  - Credentials are prompted for or read from environment variables.
+- **Candid interface:**  
+  - Cleaned up the `.did` file to match the new backend API.
+- **General:**  
+  - Documentation improvements and updated installation instructions for bot and backend.
+
+### v3.0.0
 
 - Major frontend UI/UX improvements for mobile and desktop.
 - Improved chat scroll logic:  

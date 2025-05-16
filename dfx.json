@@ -11,11 +11,6 @@
       ],
       "type": "assets",
       "workspace": "forsetidotfun_frontend"
-    },
-    "llama_cpp_canister": {
-      "type": "custom",
-      "candid": "build/llama_cpp.did",
-      "wasm": "build/llama_cpp.wasm"
     }
   },
   "defaults": {
