@@ -34,7 +34,7 @@ def get_env_or_prompt(var, prompt_text):
 def get_quote(topic=None):
     client = Client(IC_GATEWAY)
     canister = Canister(
-        client=client,
+        ic=client,  # <-- use 'ic' instead of 'client'
         canister_id=CANISTER_ID,
         candid="""
             service : {
