@@ -2,28 +2,13 @@ import os
 import sys
 import time
 import tweepy
-from itertools import cycle
 import getpass
 import subprocess
 from ic.client import Client
-from ic.identity import Identity
 from ic.canister import Canister
 
 CANISTER_ID = "wnbu2-tyaaa-aaaak-queqa-cai"
 IC_GATEWAY = "https://icp-api.io"
-
-TOPICS = [
-    "wisdom",
-    "justice",
-    "courage",
-    "fate",
-    "honor",
-    "nature",
-    "friendship",
-    "leadership",
-    "change",
-    "destiny"
-]
 
 def get_env_or_prompt(var, prompt_text):
     val = os.environ.get(var)
@@ -31,7 +16,7 @@ def get_env_or_prompt(var, prompt_text):
         val = input(f"Enter {prompt_text}: ")
     return val
 
-def get_quote(topic=None):
+def get_quote():
     client = Client(IC_GATEWAY)
     canister = Canister(
         client,
@@ -42,11 +27,8 @@ def get_quote(topic=None):
             }
         """
     )
-    # Ensure the argument is always a tuple of length 1, and is None if not a string
-    if topic is None or topic == "":
-        args = (None,)
-    else:
-        args = (str(topic),)
+    # Always call with no topic (None)
+    args = (None,)
     result = canister.get_quote(args=args)
     if "Ok" in result:
         return result["Ok"]
@@ -100,10 +82,10 @@ def main():
         write_systemd_service(api_key, api_secret, access_token, access_secret)
         return
 
-    for topic in cycle(TOPICS):
+    while True:
         try:
-            quote = get_quote(topic)
-            print(f"Posting quote on topic '{topic}': {quote}")
+            quote = get_quote()
+            print(f"Posting quote: {quote}")
             post_to_twitter(quote, api_key, api_secret, access_token, access_secret)
             print("Posted to Twitter.")
         except Exception as e:
