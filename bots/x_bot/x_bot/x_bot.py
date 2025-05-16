@@ -30,6 +30,9 @@ def get_quote():
         raise Exception(f"Unexpected canister output: {out}")
 
 def post_to_twitter(text, api_key, api_secret, access_token, access_secret):
+    # Twitter/X limit is 280 characters
+    if len(text) > 280:
+        text = text[:277] + "..."
     auth = tweepy.OAuth1UserHandler(api_key, api_secret, access_token, access_secret)
     api = tweepy.API(auth)
     api.update_status(text)
