@@ -9,6 +9,6 @@ service : {
   prompt : (text) -> (variant { Ok : text; Err : text });
   health : () -> (text) query;
   get_runes : () -> (vec RuneRecord) query;
-  get_quote : (opt text) -> (variant { Ok : text; Err : text });
+  get_quote : () -> (variant { Ok : text; Err : text });
 }
 

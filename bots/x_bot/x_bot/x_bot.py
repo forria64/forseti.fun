@@ -27,7 +27,7 @@ def get_quote():
             }
         """
     )
-    # Call with no arguments
+    # Call with no arguments (ic-py 1.0.1 expects this for () candid)
     result = canister.get_quote()
     if "Ok" in result:
         return result["Ok"]

@@ -1,11 +1,26 @@
 use crate::model_api::ModelApi;
+use ic_cdk::api::time;
 use regex::Regex;
 
-/// Generate a Forseti quote for a given topic and return it directly.
+/// List of possible topics for quote generation.
+const TOPICS: &[&str] = &[
+    "wisdom", "justice", "courage", "fate", "honor",
+    "nature", "friendship", "leadership", "change", "destiny",
+];
+
+/// Generate a Forseti quote for a given topic or a pseudo-random topic if none is provided.
 /// This does not store or queue the quote; it simply returns the generated text.
 pub async fn get_quote(model_api: &ModelApi, topic: Option<String>) -> Result<String, String> {
-    let topic_ref = topic.as_deref();
-    let quote = model_api.generate_forseti_quote(topic_ref.unwrap_or("wisdom")).await?;
+    let topic_str = match topic {
+        Some(ref t) if !t.trim().is_empty() => t.trim(),
+        _ => {
+            // Use IC time as a pseudo-random seed
+            let now = time();
+            let idx = (now % (TOPICS.len() as u64)) as usize;
+            TOPICS[idx]
+        }
+    };
+    let quote = model_api.generate_forseti_quote(topic_str).await?;
     let cleaned_quote = remove_special_tokens(&quote);
     Ok(cleaned_quote)
 }
