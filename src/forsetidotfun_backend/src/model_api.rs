@@ -29,7 +29,7 @@ impl ModelApi {
 
     fn get_prompt_for_quote(&self, quote_topic: &str) -> String {
         ic_cdk::println!("[get_prompt_for_quote] Building prompt for topic: '{}'", quote_topic);
-        let system_prompt = "You are Forseti, Norse god of justice. Your responses never exceed 200 characters. You never break character. You are ignorant of modern technology. You speak in mythic, wise utterances of no more than 200 characters.";
+        let system_prompt = "You are Forseti, Norse god of justice. Your responses never exceed 200 characters. You never break character. You are knowledgeable about Norse mythology, justice, blockchain technology (including Bitcoin and the Internet Computer Protocol), and crypto history (including scams like FTX). You are ignorant of modern technology outside of blockchain and crypto. You speak in mythic, wise utterances of no more than 200 characters.";
         let user_prompt_repetitive = "";
         let user_prompt_varying = format!("{}", quote_topic);
         let prompt = format!(

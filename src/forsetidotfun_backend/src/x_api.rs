@@ -6,6 +6,28 @@ use regex::Regex;
 const TOPICS: &[&str] = &[
     "wisdom", "justice", "courage", "fate", "honor",
     "nature", "friendship", "leadership", "change", "destiny",
+    "truth", "sacrifice", "loyalty", "strength", "perseverance",
+    "hope", "faith", "trust", "integrity", "valor",
+    "forgiveness", "patience", "compassion", "freedom", "destiny",
+    "duty", "legacy", "balance", "peace", "war",
+    "love", "betrayal", "revenge", "destiny", "saga",
+    "myth", "legend", "prophecy", "honesty", "humility",
+    "glory", "suffering", "mortality", "immortality", "saga",
+    "destiny", "sacred oaths", "family", "kinship", "community",
+    "saga", "destiny", "sacred places", "ritual", "sacrifice",
+    "destiny", "fate", "destiny", "destiny", "destiny",
+    "blockchain technology", "bitcoin", "internet computer protocol", "crypto scams", "cryptocurrency",
+    "decentralization", "smart contracts", "consensus", "hashing", "mining",
+    "nodes", "wallets", "private keys", "public keys", "transactions",
+    "block explorers", "gas fees", "proof of work", "proof of stake", "validators",
+    "airdrops", "NFTs", "DeFi", "DAOs", "tokenomics",
+    "forks", "mainnet", "testnet", "rug pulls", "pump and dump",
+    "Satoshi Nakamoto", "Hal Finney", "block rewards", "genesis block", "whitepaper",
+    "cold storage", "hot wallets", "seed phrases", "exchange hacks", "Mt. Gox",
+    "FTX", "Terra Luna", "Bitconnect", "ICO", "staking",
+    "governance", "oracles", "layer 1", "layer 2", "sharding",
+    "rollups", "zk-SNARKs", "airdrops", "token swaps", "liquidity pools",
+    "cross-chain", "bridges", "block size", "scalability", "immutability"
 ];
 
 /// Generate a Forseti quote for a given topic or a pseudo-random topic if none is provided.
