@@ -2,13 +2,17 @@
 
 A bot that posts comments to all tokens you own on odin.fun every 2 hours.
 
-## Usage
+## Installation
 
-Install with pipx or pip:
+You can install and run the bot directly from GitHub using pipx:
 
 ```sh
-pipx install --editable .
+pipx install git+https://github.com/forria64/forseti.fun.git#subdirectory=bots/odin_bot
 ```
+
+This will install the `odin-bot` command globally.
+
+## Usage
 
 Run once:
 
