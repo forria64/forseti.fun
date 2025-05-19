@@ -121,11 +121,16 @@ def main():
                 print(f"[DEBUG] Quote to post: {quote}")
                 for token in tokens:
                     print(f"[DEBUG] Token object: {token}")
-                    token_id = token["id"] if isinstance(token, dict) and "id" in token else token
-                    comment = f"{quote}"
-                    print(f"[DEBUG] Posting comment to token {token_id}: {comment}")
-                    post_comment(token_id, comment, api_key)
-                    print("[DEBUG] Posted.")
+                    # Odin.fun API returns each token as {'balance': ..., 'token': {...}}
+                    if isinstance(token, dict) and "token" in token and "id" in token["token"]:
+                        token_id = token["token"]["id"]
+                        print(f"[DEBUG] Extracted token_id: {token_id}")
+                        comment = f"{quote}"
+                        print(f"[DEBUG] Posting comment to token {token_id}: {comment}")
+                        post_comment(token_id, comment, api_key)
+                        print("[DEBUG] Posted.")
+                    else:
+                        print(f"[DEBUG] Skipping token object, could not extract token_id: {token}")
         except Exception as e:
             print("[DEBUG] Error in main loop:", e)
         print("[DEBUG] Sleeping for 2 hours...")
