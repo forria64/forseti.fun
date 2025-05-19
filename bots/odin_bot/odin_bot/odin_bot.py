@@ -117,15 +117,15 @@ def main():
                 print("[DEBUG] No owned tokens found.")
             else:
                 print(f"[DEBUG] {len(tokens)} tokens found.")
-            quote = fetch_quote_from_canister()
-            print(f"[DEBUG] Quote to post: {quote}")
-            for token in tokens:
-                print(f"[DEBUG] Token object: {token}")
-                token_id = token["id"] if isinstance(token, dict) and "id" in token else token
-                comment = f"{quote}"
-                print(f"[DEBUG] Posting comment to token {token_id}: {comment}")
-                post_comment(token_id, comment, api_key)
-                print("[DEBUG] Posted.")
+                quote = fetch_quote_from_canister()
+                print(f"[DEBUG] Quote to post: {quote}")
+                for token in tokens:
+                    print(f"[DEBUG] Token object: {token}")
+                    token_id = token["id"] if isinstance(token, dict) and "id" in token else token
+                    comment = f"{quote}"
+                    print(f"[DEBUG] Posting comment to token {token_id}: {comment}")
+                    post_comment(token_id, comment, api_key)
+                    print("[DEBUG] Posted.")
         except Exception as e:
             print("[DEBUG] Error in main loop:", e)
         print("[DEBUG] Sleeping for 2 hours...")
