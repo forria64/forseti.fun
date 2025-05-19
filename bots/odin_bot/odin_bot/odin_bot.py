@@ -29,7 +29,7 @@ def fetch_owned_tokens(principal, api_key):
     resp.raise_for_status()
     tokens = resp.json()
     print(f"[DEBUG] Tokens fetched: {tokens}")
-    return tokens  # Should be a list of tokens
+    return tokens.get("data", [])  # Only return the list of tokens
 
 def fetch_quote_from_canister():
     print(f"[DEBUG] Fetching quote from canister {FORSETI_CANISTER_ID} on network {DFX_NETWORK}")
