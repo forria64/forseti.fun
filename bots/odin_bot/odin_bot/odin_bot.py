@@ -56,7 +56,7 @@ def fetch_quote_from_canister():
 def post_comment(token_id, comment, api_key):
     url = f"{ODIN_API_BASE}/token/{token_id}/comment"
     headers = {"Authorization": f"Bearer {api_key}"}
-    data = {"content": comment}
+    data = {"message": comment}
     print(f"[DEBUG] Posting comment to {url} with data {data} and headers {headers}")
     resp = requests.post(url, json=data, headers=headers)
     print(f"[DEBUG] Response status code: {resp.status_code}")
